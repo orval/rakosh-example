@@ -41,14 +41,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: enable corepack
-        run: |
-          corepack enable
-          yarn --version
-
       - name: yarn
         run: |
           cd rakosh
+          corepack enable
           yarn install --immutable
           yarn run lint
           
