@@ -55,7 +55,7 @@ jobs:
 
       - name: extract and build gatsby site
         run: |
-          mkdir ./staticsiteA
+          mkdir ./staticsite
           touch ./staticsite/yarn.lock
           cd rakosh
           node ./cli/main.js gatsby my-mine ../cust-prod.json ../staticsite -v --no-build
