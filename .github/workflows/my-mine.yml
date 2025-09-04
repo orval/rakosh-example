@@ -39,14 +39,17 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: yarn
-          cache-dependency-path: rakosh/yarn.lock
-          
+          node-version: 20
+
+      - name: enable corepack
+        run: |
+          corepack enable
+          yarn --version
+
       - name: yarn
         run: |
           cd rakosh
-          yarn install --frozen-lockfile
+          yarn install --immutable
           yarn run lint
           
       - name: deposit my-mine
@@ -56,12 +59,12 @@ jobs:
 
       - name: extract and build gatsby site
         run: |
-          mkdir ./staticsite
+          mkdir ./staticsiteA
+          touch ./staticsite/yarn.lock
           cd rakosh
           node ./cli/main.js gatsby my-mine ../cust-prod.json ../staticsite -v --no-build
           cd ../staticsite
-          yarn
-          yarn list
+          yarn install --no-immutable
           yarn run deploy
           
       - name: upload artifact
